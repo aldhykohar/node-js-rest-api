@@ -2,8 +2,9 @@
 
 
 module.exports = function (app) {
-    var jsonku = require('./controller');
+    var json = require('./controller');
 
-    app.route('/').get(jsonku.index);
-    app.route('/showStudent').get(jsonku.showAllStudent);
+    app.route('/').get(json.index);
+    app.route('/show').get(json.showAllStudent);
+    app.route('/show/:id').get(json.showStudentById);
 };
