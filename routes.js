@@ -9,4 +9,5 @@ module.exports = function (app) {
     app.route('/show_by_id').post(json.showStudentById);
     app.route('/add_mahasiswa').post(json.addStudent);
     app.route('/edit_mahasiswa').put(json.editStudent);
+    app.route('/delete_mahasiswa').delete(json.deletaStudent);
 };

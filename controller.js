@@ -31,6 +31,12 @@ exports.addStudent = function (req, res) {
     var nama = req.body.nama;
     var jurusan = req.body.jurusan;
 
+    if (!id || !nama || !nim || !jurusan) {
+        console.log(nama)
+        response.ResponseFailed(400, "Data tidak sesuai request", {}, res)
+        return
+    }
+
     var query = 'INSERT INTO mahasiswa (nim,nama,jurusan) VALUES(?,?,?)'
     var value = [nim, nama, jurusan]
     models.insertRowQuery(query, value)
@@ -45,8 +51,9 @@ exports.editStudent = function (req, res) {
     var nama = req.body.nama;
     var jurusan = req.body.jurusan;
 
-    if (id == null) {
-        response.ResponseFailed(400, "Data tidak sesuai request", "id_mhs bernilai null", res)
+    if (!id || !nama || !nim || !jurusan) {
+        console.log(nama)
+        response.ResponseFailed(400, "Data tidak sesuai request", {}, res)
         return
     }
 
@@ -54,5 +61,21 @@ exports.editStudent = function (req, res) {
     var value = [nim, nama, jurusan, id]
     models.insertRowQuery(query, value)
         .then(response.ResponseSuccess(200, "Data Berhasil DiUpdate", {}, res))
+        .catch(err => response.ResponseFailed(400, "Gagal", err, res))
+}
+
+// deleta data mahasiswa
+exports.deletaStudent = function (req, res) {
+    var id = req.body.id_mhs;
+
+    if (!id) {
+        response.ResponseFailed(400, "Data tidak sesuai request", {}, res)
+        return
+    }
+
+    var query = 'DELETE FROM mahasiswa WHERE id_mahasiswa=?'
+    var value = [id]
+    models.insertRowQuery(query, value)
+        .then(response.ResponseSuccess(200, "Data Berhasil Di Hapus", {}, res))
         .catch(err => response.ResponseFailed(400, "Gagal", err, res))
 }
