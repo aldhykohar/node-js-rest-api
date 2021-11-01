@@ -2,30 +2,38 @@
 
 var response = require('./res');
 var connection = require('./connection');
+var models = require('./models');
+const { query } = require('express');
 
 exports.index = function (req, res) {
-    response.success("Aplication REST API start!", res)
+    response.ResponseSuccess(200, "Aplication REST API start!", {}, res)
 };
 
 //show all data mahasiswa
 exports.showAllStudent = function (req, res) {
-    connection.query('SELECT * FROM mahasiswa', function (err, rows, fields) {
-        if (err) {
-            connection.log(err)
-        } else {
-            response.success(rows, res)
-        }
-    });
+    models.getRowQuery("SELECT * FROM mahasiswa")
+        .then(data => response.ResponseSuccess(200, "Berhasil", data, res))
+        .catch(err => response.ResponseFailed(400, "Gagal", err, res))
 };
 
 // show all data mahasiswa by id
 exports.showStudentById = function (req, res) {
-    let id = req.params.id;
-    connection.query("SELECT * FROM mahasiswa where id_mahasiswa = ?", [id], function (err, rows, fields) {
-        if (err) {
-            connection.log(err)
-        } else {
-            response.success(rows, res)
-        }
-    })
+    let id = req.body.id;
+    const query = `SELECT * FROM mahasiswa where id_mahasiswa = ${id}`;
+    models.getRowQuery(query)
+        .then(data => response.ResponseSuccess(200, "Berhasil", data, res))
+        .catch(err => response.ResponseFailed(400, "Gagal", err, res))
+}
+
+//add data mahasiswa
+exports.addStudent = function (req, res) {
+    var nim = req.body.nim;
+    var nama = req.body.nama;
+    var jurusan = req.body.jurusan;
+
+    var query = 'INSERT INTO mahasiswa (nim,nama,jurusan) VALUES(?,?,?)'
+    var value = [nim, nama, jurusan]
+    models.insertRowQuery(query, value)
+        .then(data => response.ResponseSuccess(200, "Data Berhasil Disimpan", {}, res))
+        .catch(err => response.ResponseFailed(400, "Gagal", err, res))
 }

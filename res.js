@@ -1,11 +1,23 @@
 'use strict';
 
-exports.success = function (values, res) {
+exports.ResponseSuccess = function (status, message, values, res) {
     var data = {
-        'status': 200,
-        'value': values
+        'status': true,
+        'message': message,
+        'error': "",
+        'data': values
     }
 
-    res.json(data);
-    res.end();
-};
+    res.status(status).json(data).end();
+}
+
+exports.ResponseFailed = function (status, message, errors, res) {
+    var data = {
+        'status': false,
+        'message': message,
+        'error': errors,
+        'data': {}
+    }
+
+    res.status(status).json(data).end();
+}

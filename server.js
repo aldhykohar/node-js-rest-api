@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // parse application/json
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // call routes
 var routes = require('./routes')
 routes(app)
 
 app.listen(8080, () => {
-    console.log(`Server started on port`);
+    console.log(`Server started on "http://localhost:8080"`);
 });
