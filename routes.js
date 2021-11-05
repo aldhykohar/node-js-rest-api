@@ -10,4 +10,5 @@ module.exports = function (app) {
     app.route('/add_mahasiswa').post(json.addStudent);
     app.route('/edit_mahasiswa').put(json.editStudent);
     app.route('/delete_mahasiswa').delete(json.deletaStudent);
+    app.route('/show_group_matakuliah').get(json.showGroupMataKuliah);
 };

@@ -64,7 +64,7 @@ exports.editStudent = function (req, res) {
         .catch(err => response.ResponseFailed(400, "Gagal", err, res))
 }
 
-// deleta data mahasiswa
+// deleta data mahasiswa by id
 exports.deletaStudent = function (req, res) {
     var id = req.body.id_mhs;
 
@@ -77,5 +77,16 @@ exports.deletaStudent = function (req, res) {
     var value = [id]
     models.insertRowQuery(query, value)
         .then(response.ResponseSuccess(200, "Data Berhasil Di Hapus", {}, res))
+        .catch(err => response.ResponseFailed(400, "Gagal", err, res))
+}
+
+// show matakuliah group
+exports.showGroupMataKuliah = function (req, res) {
+    var query = 'SELECT mahasiswa.id_mahasiswa, mahasiswa.nim, mahasiswa.nama, mahasiswa.jurusan, matakuliah.matakuliah, matakuliah.sks FROM krs JOIN matakuliah JOIN mahasiswa WHERE krs.id_matakuliah = matakuliah.id_matakuliah AND krs.id_mahasiswa = mahasiswa.id_mahasiswa ORDER BY mahasiswa.id_mahasiswa'
+    models.getRowQuery(query)
+        .then(data => {
+            console.log("Success")
+            response.OkNested(data, res)
+        })
         .catch(err => response.ResponseFailed(400, "Gagal", err, res))
 }
