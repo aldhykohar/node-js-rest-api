@@ -63,7 +63,6 @@ exports.login = function (req, res) {
                     expiresIn: 1440
                 })
 
-                console.log(rows);
                 id_user = rows[0].id_user;
 
                 var data = {
@@ -83,8 +82,6 @@ exports.login = function (req, res) {
                     token: token
                 }
 
-                console.log(datas);
-
                 connection.query(query, function (err, rows) {
                     if (err) {
                         console.log(err)
@@ -97,4 +94,8 @@ exports.login = function (req, res) {
             }
         }
     })
+}
+
+exports.secretPage = function (req, res) {
+    response.ResponseSuccess(200, "Halaman ini hanya untuk user role = 2", {}, res)
 }
