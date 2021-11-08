@@ -19,4 +19,5 @@ module.exports = function (app) {
     app.route('/create_mhs').post(controller.mahasiswa.createMahasiswa)
     app.route('/edit_mhs').put(controller.mahasiswa.editMahasiswa)
     app.route('/delete_mhs').delete(controller.mahasiswa.deleteMahasiswa)
+    app.route('/search_mhs').get(controller.mahasiswa.getSearch)
 };

@@ -1,10 +1,50 @@
+const { Op } = require('sequelize');
 const model = require('../config/model/index')
 const response = require('../res');
 const controller = {}
 
 controller.getAll = async function (req, res) {
     try {
-        await model.mahasiswa.findAll()
+        await model.mahasiswa.findAll({
+            attributes: [['nim', 'nim_mhs'], ['nama', 'nama_mhs'], ['jurusan', 'jurusan_mhs']],
+            where: {
+                [Op.or]: [
+                    { nama: 'Aldi Arif Setiawan' },
+                    { jurusan: 'Teknik Informatika' }
+                ]
+            },
+            order: [['nama', 'asc']],
+            limit: 3
+        })
+            .then((result) => {
+                if (result.length > 0) {
+                    response.ResponseSuccess(200, "Berhasil", result, res)
+                } else {
+                    response.ResponseSuccess(200, "Data Tidak Ditemukan", [], res)
+                }
+            })
+    } catch (err) {
+        response.ResponseFailed(400, "Gagal", err.message, res)
+    }
+}
+
+controller.getSearch = async function (req, res) {
+    const search = req.body.keyword
+    try {
+        await model.mahasiswa.findAll({
+            attributes: [['nim', 'nim_mhs'], ['nama', 'nama_mhs'], ['jurusan', 'jurusan_mhs']],
+            where: {
+                [Op.or]: [{
+                    nama: {
+                        [Op.like]: '%' + search + '%'
+                    }
+                }, {
+                    jurusan: {
+                        [Op.like]: '%' + search + '%'
+                    }
+                }]
+            }
+        })
             .then((result) => {
                 if (result.length > 0) {
                     response.ResponseSuccess(200, "Berhasil", result, res)
