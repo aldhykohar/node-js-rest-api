@@ -3,7 +3,11 @@ const db = require('../database/connection')
 
 var mahasiswa = db.define('mahasiswa', {
     id_mahasiswa: Sequelize.INTEGER,
-    nim: Sequelize.STRING,
+    nim: {
+        type: Sequelize.DataTypes.STRING,
+        notEmpty: true,
+        notNull: true
+    },
     nama: Sequelize.STRING,
     jurusan: Sequelize.STRING,
 }, {

@@ -12,5 +12,11 @@ module.exports = function (app) {
     app.route('/edit_mahasiswa').put(json.editStudent);
     app.route('/delete_mahasiswa').delete(json.deletaStudent);
     app.route('/show_group_matakuliah').get(json.showGroupMataKuliah);
-    app.route('/getAll').get(controller.mahasiswa.getAll)
+
+    //using sequelize
+    app.route('/get_all').get(controller.mahasiswa.getAll)
+    app.route('/get_by_id').get(controller.mahasiswa.getByID)
+    app.route('/create_mhs').post(controller.mahasiswa.createMahasiswa)
+    app.route('/edit_mhs').put(controller.mahasiswa.editMahasiswa)
+    app.route('/delete_mhs').delete(controller.mahasiswa.deleteMahasiswa)
 };
