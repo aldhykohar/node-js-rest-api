@@ -1,7 +1,7 @@
 'use strict';
 
 var response = require('./res');
-var connection = require('./connection');
+var connection = require('./config/database/connection');
 var models = require('./models');
 const { query } = require('express');
 

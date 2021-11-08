@@ -1,4 +1,4 @@
-var connection = require('./connection');
+var connection = require('./config/database/connection');
 
 exports.getRowQuery = function (query) {
     return new Promise(function (resolve, reject) {

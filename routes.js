@@ -3,6 +3,7 @@
 
 module.exports = function (app) {
     var json = require('./controller');
+    var controller = require('./controller/index');
 
     app.route('/').get(json.index);
     app.route('/show').get(json.showAllStudent);
@@ -11,4 +12,5 @@ module.exports = function (app) {
     app.route('/edit_mahasiswa').put(json.editStudent);
     app.route('/delete_mahasiswa').delete(json.deletaStudent);
     app.route('/show_group_matakuliah').get(json.showGroupMataKuliah);
+    app.route('/getAll').get(controller.mahasiswa.getAll)
 };

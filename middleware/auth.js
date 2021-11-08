@@ -1,4 +1,4 @@
-var connection = require('../connection')
+var connection = require('../config/database/connection')
 var mysql = require('mysql')
 var md5 = require('MD5')
 var response = require('../res')
