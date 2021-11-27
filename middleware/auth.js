@@ -57,7 +57,7 @@ exports.login = async function (req, res) {
         })
         if (data.length > 0) {
             var token = jwt.sign({ data }, config.secret, {
-                expiresIn: 1440
+                expiresIn: '1d'
             })
             id_user = data[0].id_user;
 
