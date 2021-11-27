@@ -5,10 +5,12 @@ var response = require('../res')
 var jwt = require('jsonwebtoken')
 var config = require('../config/secret')
 var ip = require('ip')
+const model = require('../config/model/index')
+const { Op } = require('sequelize');
 
 
 // controller register
-exports.registrasi = function (req, res) {
+exports.registrasi = async function (req, res) {
     var post = {
         username: req.body.username,
         email: req.body.email,
@@ -16,30 +18,30 @@ exports.registrasi = function (req, res) {
         role: req.body.role,
         tgl_regis: new Date()
     }
-    var query = 'SELECT email from ?? WHERE ?? = ?';
-    var table = ["user", "email", post.email];
-    query = mysql.format(query, table);
 
-    connection.query(query, function (err, rows) {
-        if (err) {
-            console.log(err)
-        } else {
-            if (rows.length == 0) {
-                var query = "INSERT INTO ?? SET ?";
-                var table = ["user", post];
-                query = mysql.format(query, table);
-                connection.query(query, post, function (err, rows) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        response.ResponseSuccess(201, "Berhasil menambahkan data", {}, res);
-                    }
-                })
-            } else {
-                response.ResponseSuccess(200, "Email sudah terdaftar !", {}, res);
+
+    try {
+        let checkUser = await model.user.findAll({
+            where: {
+                email: post.email
             }
+        })
+        if (checkUser.length > 0) {
+            response.ResponseFailed(200, "Email sudah terdaftar !", {}, res);
+        } else {
+            await model.user.create({
+                username: post.username,
+                email: post.email,
+                password: post.password,
+                role: post.role,
+                tgl_regis: post.tgl_regis
+            })
+            response.ResponseSuccess(201, "Berhasil menambahkan data", {}, res);
         }
-    })
+    } catch (err) {
+        response.ResponseFailed(400, "Gagal", err.message, res)
+    }
+
 }
 
 

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../database/connection')
 
-var mahasiswa = db.define('mahasiswa', {
+var mahasiswa = db.define('user', {
     id_user: Sequelize.INTEGER,
     username: {
         type: Sequelize.DataTypes.STRING,
@@ -32,7 +32,7 @@ var mahasiswa = db.define('mahasiswa', {
         }
     },
     tgl_regis: {
-        type: Sequelize.DataTypes.STRING,
+        type: Sequelize.DataTypes.DATE,
         allowNull: false,
         validate: {
             notEmpty: true
