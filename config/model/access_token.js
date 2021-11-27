@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../database/connection')
 
-var access_token = db.define('akses_token', {
+var data = db.define('akses_token', {
     id_akses_token: Sequelize.INTEGER,
     id_user: {
         type: Sequelize.DataTypes.INTEGER,
@@ -29,5 +29,5 @@ var access_token = db.define('akses_token', {
     timestamps: false
 })
 
-access_token.removeAttribute('id')
-module.exports = access_token
+data.removeAttribute('id')
+module.exports = data

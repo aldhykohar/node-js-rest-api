@@ -24,13 +24,6 @@ var user = db.define('user', {
             notEmpty: true
         }
     },
-    role: {
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
     tgl_regis: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false,

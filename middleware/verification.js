@@ -16,7 +16,7 @@ function verification() {
                     return response.ResponseFailed(401, "Token tidak valid", {}, rest)
                 } else {
                     if (roles == 2) {
-                        req.auth = decoded
+                        req.auth = decoded.data[0]
                         next()
                     } else {
                         return response.ResponseFailed(401, "Gagal mengotorisasi role anda!", {}, rest)
