@@ -14,7 +14,7 @@ var routes = require('./routes')
 routes(app)
 
 //daftarkan menu routes dari index
-app.use('/auth', require('./middleware'));
+app.use('/api/v1', require('./middleware'));
 
 app.listen(8080, () => {
     console.log(`Server started on "http://localhost:8080"`);
