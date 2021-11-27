@@ -1,38 +1,24 @@
 const Sequelize = require('sequelize')
 const db = require('../database/connection')
 
-var user = db.define('user', {
-    id_user: Sequelize.INTEGER,
-    username: {
+var access_token = db.define('akses_token', {
+    id_akses_token: Sequelize.INTEGER,
+    id_user: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
+    },
+    access_token: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
         }
     },
-    email: {
+    ip_address: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
-    password: {
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
-    role: {
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
-    tgl_regis: {
-        type: Sequelize.DataTypes.DATE,
         allowNull: false,
         validate: {
             notEmpty: true
@@ -43,5 +29,5 @@ var user = db.define('user', {
     timestamps: false
 })
 
-user.removeAttribute('id')
-module.exports = user
+access_token.removeAttribute('id')
+module.exports = access_token
