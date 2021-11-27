@@ -59,19 +59,19 @@ exports.login = async function (req, res) {
             var token = jwt.sign({ data }, config.secret, {
                 expiresIn: '1d'
             })
-            id_user = data[0].id_user;
+            user = data[0];
 
             await model.access_token.create({
-                id_user: id_user,
+                id_user: user.id_user,
                 access_token: token,
                 ip_address: ip.address()
             })
 
             var datas = {
-                iduser: id_user,
+                username: user.username,
                 token: token
             }
-            return response.ResponseSuccess(200, "Token JWT tergenerate", datas, res)
+            return response.ResponseSuccess(200, "Login Success !", datas, res)
         } else {
             return response.ResponseFailed(400, "Email atau password salah!", {}, res)
         }
