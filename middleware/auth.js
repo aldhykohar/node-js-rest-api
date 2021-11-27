@@ -23,7 +23,7 @@ exports.registrasi = async function (req, res) {
             }
         })
         if (data.length > 0) {
-            response.ResponseFailed(400, "Email sudah terdaftar !", {}, res);
+            return response.ResponseFailed(400, "Email sudah terdaftar !", {}, res);
         } else {
             await model.user.create({
                 username: post.username,
@@ -31,10 +31,10 @@ exports.registrasi = async function (req, res) {
                 password: post.password,
                 tgl_regis: post.tgl_regis
             })
-            response.ResponseSuccess(201, "Berhasil menambahkan data", {}, res);
+            return response.ResponseSuccess(201, "Berhasil menambahkan data", {}, res);
         }
     } catch (err) {
-        response.ResponseFailed(400, "Gagal", err.message, res)
+        return response.ResponseFailed(400, "Gagal", err.message, res)
     }
 
 }
@@ -71,13 +71,13 @@ exports.login = async function (req, res) {
                 iduser: id_user,
                 token: token
             }
-            response.ResponseSuccess(200, "Token JWT tergenerate", datas, res)
+            return response.ResponseSuccess(200, "Token JWT tergenerate", datas, res)
         } else {
-            response.ResponseFailed(400, "Email atau password salah!", {}, res)
+            return response.ResponseFailed(400, "Email atau password salah!", {}, res)
         }
 
     } catch (error) {
-        response.ResponseFailed(400, "Gagal", error.message, res)
+        return response.ResponseFailed(400, "Gagal", error.message, res)
     }
 }
 
@@ -93,8 +93,8 @@ exports.secretPage = async function (req, res) {
                 ]
             }
         })
-        response.ResponseSuccess(200, "Success", data[0], res)
+        return response.ResponseSuccess(200, "Success", data[0], res)
     } catch (error) {
-        response.ResponseFailed(400, "Gagal", error.message, res)
+        return response.ResponseFailed(400, "Gagal", error.message, res)
     }
 }

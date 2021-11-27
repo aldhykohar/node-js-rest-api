@@ -26,9 +26,9 @@ var conn = new Sequelize('nodejs_api', 'root', '', {
 var testConnection = async () => {
     try {
         await conn.authenticate();
-        console.log('Connection has been established successfully.');
+        console.log('Connection has been established successfully!');
     } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        console.error('Unable to connect to the database:', error.message);
     }
 }
 
