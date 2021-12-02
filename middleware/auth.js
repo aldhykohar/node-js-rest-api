@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-var md5 = require('MD5')
+var md5 = require('md5')
 var response = require('../res')
 var config = require('../config/secret')
 var ip = require('ip')
@@ -23,7 +23,7 @@ exports.registrasi = async function (req, res) {
             }
         })
         if (data.length > 0) {
-            return response.ResponseFailed(400, "Email sudah terdaftar !", {}, res);
+            return response.ResponseFailed(400, "Email sudah terdaftar !", "", res);
         } else {
             await model.user.create({
                 username: post.username,
@@ -73,7 +73,7 @@ exports.login = async function (req, res) {
             }
             return response.ResponseSuccess(200, "Login Success !", datas, res)
         } else {
-            return response.ResponseFailed(400, "Email atau password salah!", {}, res)
+            return response.ResponseFailed(200, "Email atau password salah!", "", res)
         }
 
     } catch (error) {
