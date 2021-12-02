@@ -17,9 +17,9 @@ var Sequelize = require('sequelize');
 //     }
 // });
 
-var conn = new Sequelize('nodejs_api', 'root', '', {
+var conn = new Sequelize('heroku_5ef4fa895ada344', 'ba5bc5a95382dd', '887629c4', {
     dialect: 'mysql',
-    host: 'localhost'
+    host: 'us-cdbr-east-04.cleardb.com'
 })
 
 
